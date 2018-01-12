@@ -40,11 +40,12 @@ namespace WebApp_OpenIDConnect_DotNet
         // The Post Logout Redirect Uri is the URL where the user will be redirected after they sign out.
         //
         private static string clientId = ConfigurationManager.AppSettings["ida:ClientId"];
-        private static string aadInstance = ConfigurationManager.AppSettings["ida:AADInstance"];
-        private static string tenant = ConfigurationManager.AppSettings["ida:Tenant"];
+        //private static string aadInstance = ConfigurationManager.AppSettings["ida:AADInstance"];  
+        //private static string tenant = ConfigurationManager.AppSettings["ida:Tenant"];  
+        private static string metadataAddress = ConfigurationManager.AppSettings["ida:ADFSDiscoveryDoc"];
         private static string postLogoutRedirectUri = ConfigurationManager.AppSettings["ida:PostLogoutRedirectUri"];
 
-        string authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
+        //string authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
 
         public void ConfigureAuth(IAppBuilder app)
         {
@@ -56,12 +57,13 @@ namespace WebApp_OpenIDConnect_DotNet
                 new OpenIdConnectAuthenticationOptions
                 {
                     ClientId = clientId,
-                    Authority = authority,
+                    //Authority = authority,
+                    MetadataAddress = metadataAddress,
                     PostLogoutRedirectUri = postLogoutRedirectUri,
                     RedirectUri = postLogoutRedirectUri,
                     Notifications = new OpenIdConnectAuthenticationNotifications
                     {
-                        AuthenticationFailed = context => 
+                        AuthenticationFailed = context =>
                         {
                             context.HandleResponse();
                             context.Response.Redirect("/Error?message=" + context.Exception.Message);
