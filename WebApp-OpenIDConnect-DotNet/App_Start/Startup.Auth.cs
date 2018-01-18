@@ -61,6 +61,7 @@ namespace WebApp_OpenIDConnect_DotNet
                     MetadataAddress = metadataAddress,
                     PostLogoutRedirectUri = postLogoutRedirectUri,
                     RedirectUri = postLogoutRedirectUri,
+                    //ClientSecret = "M05kGYcFfgEzEFOiPgapvEI9kDlmX_2B_poVtsYM",
                     Notifications = new OpenIdConnectAuthenticationNotifications
                     {
                         AuthenticationFailed = context =>
